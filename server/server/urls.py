@@ -18,12 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-from django.views.generic import TemplateView
-
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', TemplateView.as_view(template_name='index.html')),
-    path('tinymce/', include('tinymce.urls'))
+    path('tinymce/', include('tinymce.urls')),
+    path('', include('apps.assets.urls', namespace='assets')),
+    path('accounts/', include('apps.accounts.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:

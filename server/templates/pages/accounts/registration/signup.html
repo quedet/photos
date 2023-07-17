@@ -2,21 +2,18 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Login
+Create an account
 {% endblock %}
 {% block content %}
 <div class="registration">
   <header class="registration--header">
-    <h1 class="header--title">Welcome Back</h1>
+    <h1 class="header--title">Getting Started</h1>
     <p class="header--description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat itaque, nisi natus veritatis magni quis a dolorem eligendi doloribus, vero architecto? Maiores accusamus molestias natus nobis ipsum dolore magni at!</p>
   </header>
-  <form action="{% url 'accounts:login' %}" method="post" class="registration--form form" >
+  <form action="{% url 'accounts:signup' %}" method="post" class="registration--form form" >
     {% csrf_token %}
     <div class="form--fields">
       {{ form|crispy }}
-      <div>
-        <a href="#">Forgot Password</a>
-      </div>
     </div>
     <!-- <div class="form--fields">
       <div class="fields--separator text-center">Or</div>
@@ -25,10 +22,10 @@ Login
     </div> -->
     <div class="form--fields">
       <input type="hidden" name="next" value="{{next}}">
-      <button type="submit">Login</button>
+      <button type="submit">Sign-up</button>
     </div>
     <div class="form--fields">
-      <p>Don't have an account yet? <a href="{% url 'accounts:signup'%}">Signup here.</a></p>
+      <p>Already have an account? <a href="{% url 'accounts:login'%}">Login here.</a></p>
     </div>
   </form>
 </div>

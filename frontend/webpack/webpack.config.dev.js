@@ -27,7 +27,7 @@ module.exports = merge(common, {
     },
     watchFiles: [
       Path.join(__dirname, '../../server/**/*.py'),
-      Path.join(__dirname, '../../server/templates/*.html')
+      Path.join(__dirname, '../../server/templates/**/*.html')
     ]
   },
   plugins: [

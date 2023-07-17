@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from django.urls import reverse
 import os
 from pathlib import Path
 
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     "tinymce",
     # Django Guardian
     "guardian",
+    # Accounts Application
+    "apps.accounts",
     # Asset Application
     "apps.assets"
 ]
@@ -182,3 +185,7 @@ STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 AWS_S3_FILE_OVERWRITE = False
+
+# Login/Logout Cnfiguration
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/accounts/login/'

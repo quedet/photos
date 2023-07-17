@@ -1,0 +1,33 @@
+.form {
+  @apply flex flex-col gap-4;
+
+  button[type="submit"] {
+    @apply bg-black text-white py-2 px-3 rounded;
+  }
+
+  .fields--separator {
+    @apply relative mb-4;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: calc(50% - 1px);
+      left: 0;
+      width: 40%;
+      height: 2px;
+
+      @apply bg-gray-200;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: calc(50% - 1px);
+      right: 0;
+      width: 40%;
+      height: 2px;
+
+      @apply bg-gray-200;
+    }
+  }
+}

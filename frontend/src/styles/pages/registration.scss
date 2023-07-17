@@ -1,0 +1,12 @@
+.registration {
+  @apply w-full max-w-xl mx-auto py-4;
+  @apply flex flex-col gap-16;
+
+  .header--title {
+    @apply text-3xl mb-4;
+  }
+
+  .header--description {
+    @apply text-gray-600;
+  }
+}
