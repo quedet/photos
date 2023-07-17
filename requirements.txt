@@ -29,3 +29,6 @@ django-crispy-forms===2.0
 graphene-django===3.0.1
 # Django Guardian - Permissions or Authorization
 django-guardian===2.4.0
+# AWS Storages
+boto3===1.28.3
+django-storages===1.13.2
