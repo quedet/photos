@@ -1,0 +1,31 @@
+# Django
+Django===4.1.7
+# Django Server
+daphne===4.0.0
+asgiref===3.6.0
+# Manipulate Images
+Pillow===9.4.0
+# Kit Utilities
+django-extensions===3.2.1
+autopep8==2.0.2
+django-dotenv===1.4.2
+# Django Filters
+django-filter===23.1
+# Postgresl driver
+psycopg2-binary===2.9.6
+# SQL driver
+sqlparse==0.4.3
+# Django Channels
+Channels===4.0.0
+# Redis Layer
+channels_redis===4.1.0
+# Django Rest Framework
+djangorestframework===3.14.0
+# Django Cors Headers
+django-cors-headers===3.14.0
+# Django Crispy Forms
+django-crispy-forms===2.0
+# Django GRAPHQL AAPI
+graphene-django===3.0.1
+# Django Guardian - Permissions or Authorization
+django-guardian===2.4.0
