@@ -15,6 +15,7 @@ from django.utils.text import slugify
 class Image(models.Model):
     title = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, null=True, blank=True)
+    source = models.ImageField(upload_to='images')
     alt = models.CharField(max_length=255)
     description = HTMLField(blank=True, null=True)
 
