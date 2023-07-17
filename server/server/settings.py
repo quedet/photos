@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     # AWS Storages
     "storages",
     # Webpack Boilerplate
-    "webpack_boilerplate"
+    "webpack_boilerplate",
+    # Django Crispy Forms - Tailwindcss
+    "crispy_forms",
+    "crispy_tailwind"
 ]
 
 MIDDLEWARE = [
@@ -117,13 +120,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Crispy Configuration
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+CRISPY_TEMPLATE_PACK = "tailwind"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, '../frontend/build')
+# STATIC_ROOT = os.path.join(BASE_DIR, '../frontend/build')
 
 STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, '../frontend/build'),
     os.path.join(BASE_DIR, 'media'),
 ]
 

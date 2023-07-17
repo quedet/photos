@@ -52,6 +52,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.4",
     "core-js": "^3.20.3"
   }
 }
