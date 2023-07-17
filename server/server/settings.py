@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     "webpack_boilerplate",
     # Django Crispy Forms - Tailwindcss
     "crispy_forms",
-    "crispy_tailwind"
+    "crispy_tailwind",
+    # Asset Application
+    "apps.assets"
 ]
 
 MIDDLEWARE = [
