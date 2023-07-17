@@ -44,9 +44,18 @@ INSTALLED_APPS = [
     # Django Crispy Forms - Tailwindcss
     "crispy_forms",
     "crispy_tailwind",
+    # Django TinyMCE
+    "tinymce",
+    # Django Guardian
+    "guardian",
     # Asset Application
     "apps.assets"
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',  # default
+    'guardian.backends.ObjectPermissionBackend',
+)
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
