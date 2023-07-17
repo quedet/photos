@@ -1,0 +1,8 @@
+# Python Dependencies
+.venv
+
+# Nodes Dependencies
+node_modules
+
+# Production Build
+frontend/build
