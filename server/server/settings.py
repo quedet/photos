@@ -81,11 +81,20 @@ WSGI_APPLICATION = "server.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+DB_USER_NAME = "fidel"
+DB_USER_PASSWORD = "KuKAgFrN3juRTQhgwCCs"
+DB_NAME = "photos"
+DB_HOST = "database-2.cxjmksx8nkrm.eu-north-1.rds.amazonaws.com"
+DB_PORT = "5432"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": DB_NAME,
+        "USER": DB_USER_NAME,
+        "PASSWORD": DB_USER_PASSWORD,
+        "HOST": DB_HOST,
+        "PORT": DB_PORT
     }
 }
 
@@ -139,7 +148,7 @@ WEBPACK_LOADER = {
     'MANIFEST_FILE': os.path.join(BASE_DIR, '../frontend/build/manifest.json')
 }
 
-MEDIA_URL = 'media'
+MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
