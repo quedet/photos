@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     "tinymce",
     # Django Guardian
     "guardian",
+    # Trbo Response
+    "turbo_response",
     # Accounts Application
     "apps.accounts",
     # Asset Application
@@ -62,6 +64,7 @@ AUTHENTICATION_BACKENDS = (
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "turbo_response.middleware.TurboMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
