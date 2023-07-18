@@ -7,8 +7,8 @@ from apps.assets.models import Image, Tag
 
 @admin.register(Image)
 class ImageAdmin(GuardedModelAdminMixin, admin.ModelAdmin):
-    list_display = ['title', 'owner', 'created', 'updated']
-    exclude = ['slug']
+    list_display = ['slug', 'source', 'owner', 'created', 'updated']
+    # exclude = ['slug']
 
 
 @admin.register(Tag)

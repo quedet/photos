@@ -45,8 +45,6 @@ INSTALLED_APPS = [
     # Django Crispy Forms - Tailwindcss
     "crispy_forms",
     "crispy_tailwind",
-    # Django TinyMCE
-    "tinymce",
     # Django Guardian
     "guardian",
     # Trbo Response
@@ -61,6 +59,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',  # default
     'guardian.backends.ObjectPermissionBackend',
 )
+
+ANONYMOUS_USER_NAME = "AnonymousUser"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

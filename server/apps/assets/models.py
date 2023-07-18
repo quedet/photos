@@ -1,23 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
-
-from tinymce.models import HTMLField
 from guardian.shortcuts import assign_perm
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 # Create your models here.
 
+from server.utils import generate_identifier
+
 from django.utils.text import slugify
 
 
 class Image(models.Model):
-    title = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, null=True, blank=True)
     source = models.ImageField(upload_to='images')
-    alt = models.CharField(max_length=255)
-    description = HTMLField(blank=True, null=True)
+    alt = models.CharField(max_length=255, null=True, blank=True)
 
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='assets')
@@ -26,10 +24,13 @@ class Image(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.slug = slugify(self.title)
+        if not self.slug:
+            self.slug = generate_identifier()
 
-        if update_fields is not None and 'title' in update_fields:
-            update_fields = {"slug"}.union(update_fields)
+        self.alt = self.source
+
+        if update_fields is not None and 'source' in update_fields:
+            update_fields = {"alt"}.union(update_fields)
         return super().save(force_insert, force_update, using, update_fields)
 
     class Meta:

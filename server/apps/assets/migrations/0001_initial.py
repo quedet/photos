@@ -3,7 +3,6 @@
 from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
-import tinymce.models
 
 
 class Migration(migrations.Migration):
@@ -30,7 +29,6 @@ class Migration(migrations.Migration):
                 ("title", models.CharField(max_length=255, unique=True)),
                 ("slug", models.SlugField(blank=True, max_length=255, null=True)),
                 ("alt", models.CharField(max_length=255)),
-                ("description", tinymce.models.HTMLField(blank=True, null=True)),
                 ("created", models.DateTimeField(auto_now_add=True)),
                 ("updated", models.DateTimeField(auto_now=True)),
                 (

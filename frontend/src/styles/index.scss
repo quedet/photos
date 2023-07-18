@@ -3,3 +3,23 @@
 @import "tailwindcss/utilities";
 @import "blocks/all";
 @import "pages/all";
+
+[data-masonry-target="grid"] {
+  display: flex;
+  flex-flow: row-reverse wrap;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  .grid-item {
+    width: max-content;
+    height: 150px;
+
+    img {
+      @apply w-full h-full object-fill;
+
+      &:hover {
+        @apply bg-gray-500;
+      }
+    }
+  }
+}

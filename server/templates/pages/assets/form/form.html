@@ -1,3 +1,44 @@
-{% extends 'layout/base.html' %}
+{% load crispy_forms_tags %}
 
-{% block content %}{% endblock %}
+<turbo-frame id="{{request.turbo.frame}}">
+  <form action="{% url 'assets:assets-create' %}" method="post" enctype="multipart/form-data" data-controller="dragdrop" data-dragdrop-url-value="{% url 'assets:assets-create' %}">
+    {% csrf_token %}
+    <div class="header--section">
+      <div class="section--wrapper">
+        <h1>Upload Files</h1>
+        <button class="" data-action="click->modal#close">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M12.854 2.854a.5.5 0 0 0-.708-.708L7.5 6.793L2.854 2.146a.5.5 0 1 0-.708.708L6.793 7.5l-4.647 4.646a.5.5 0 0 0 .708.708L7.5 8.207l4.646 4.647a.5.5 0 0 0 .708-.708L8.207 7.5l4.647-4.646Z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+
+      <p>Upload files you want to share with your team members.</p>
+      <p>PDF, Images & Videos are allowed.</p>
+    </div>
+    <div class="main--section">
+      <div class="drop--section">
+        <div class="col">
+          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 20 20"><path fill="currentColor" d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4l-4 4h3v3h2v-3z"/></svg>
+          <span>Drag & Drop your files here</span>
+          <span>OR</span>
+          <button type="button">
+            <label for="{{form.source.id_for_label}}" class="upload--button file--selector">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H1c-.55 0-1 .45-1 1s.45 1 1 1h22c.55 0 1-.45 1-1s-.45-1-1-1h-3zM5 6h14c.55 0 1 .45 1 1v8c0 .55-.45 1-1 1H5c-.55 0-1-.45-1-1V7c0-.55.45-1 1-1z"/></svg>
+              <span>
+                Browser Files
+              </span>
+            </label>
+            {{ form.source }}
+          </button>
+        </div>
+        <!-- <div class="col">
+          <div class="drop--here">Drop here</div>
+        </div> -->
+      </div>
+      <div class="list--section">
+        <div class="list--title">Uploaded Files</div>
+        <div class="list">
+        </div>
+      </div>
+    </div>
+  </form>
+</turbo-frame>
