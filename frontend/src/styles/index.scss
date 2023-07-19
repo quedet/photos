@@ -1,25 +1,37 @@
+@use "foundation/breakpoints" as breakpoints;
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "blocks/all";
 @import "pages/all";
 
-[data-masonry-target="grid"] {
+.assets--list {
   display: flex;
   flex-flow: row-reverse wrap;
   justify-content: flex-end;
   gap: 1rem;
 
-  .grid-item {
+  @include breakpoints.tablet {
+    gap: 0.5rem;
+  }
+
+  .asset--item {
     width: max-content;
-    height: 150px;
+
+    @include breakpoints.desktop {
+      height: 150px;
+    }
+
+    @include breakpoints.tablet {
+      height: 6.25rem;
+    }
+
+    @include breakpoints.mobile {
+      height: 4.6875rem;
+    }
 
     img {
       @apply w-full h-full object-fill;
-
-      &:hover {
-        @apply bg-gray-500;
-      }
     }
   }
 }

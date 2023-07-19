@@ -1,0 +1,27 @@
+.aside--navbar {
+  .navbar--brand {
+    @apply px-4 border-b py-4;
+
+    .brand--icon {
+      @apply w-6 h-6;
+    }
+
+    .brand--text {
+      @apply text-xl font-semibold text-gray-500;
+    }
+  }
+
+  .navbar--menu {
+    .navbar--item {
+      @apply px-4 py-3 cursor-pointer;
+
+      .navbar--link {
+        @apply flex items-center gap-2;
+      }
+
+      &:hover {
+        @apply bg-gray-100;
+      }
+    }
+  }
+}

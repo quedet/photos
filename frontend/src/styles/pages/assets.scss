@@ -1,5 +1,9 @@
+@use "../foundation/breakpoints" as breakpoints;
+
 .page--assets {
-  @apply w-screen h-screen overflow-hidden;
+  @include breakpoints.desktop {
+    @apply w-screen h-screen overflow-hidden;
+  }
 }
 
 .main--header {
@@ -7,57 +11,126 @@
 
   .header--container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     align-items: center;
 
-    @apply h-16 px-4;
-
-    .navbar--brand {
-      grid-column: 1;
-    }
-
-    .navbar--search {
-      grid-column: 2 / -3;
-    }
+    @apply px-4;
 
     .navbar--menu {
-      grid-column: -3 / -1;
-
       @apply flex items-center gap-2 justify-end;
+    }
+
+    @include breakpoints.desktop {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+      @apply h-16;
+
+      .navbar--brand {
+        grid-column: 1;
+      }
+
+      .navbar--search {
+        grid-column: 2 / -3;
+      }
+
+      .navbar--menu {
+        grid-column: -3 / -1;
+
+        @apply flex items-center gap-2 justify-end;
+      }
+    }
+
+    @include breakpoints.tablet {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+
+      .navbar--brand {
+        grid-column: 1;
+      }
+
+      .navbar--search {
+        grid-row: 2;
+        grid-column: 1 / -1;
+        width: 100%;
+        margin: 0;
+      }
+
+      .navbar--menu {
+        grid-column: 2 / -1;
+
+        @apply flex items-center gap-2 justify-end;
+      }
     }
   }
 }
 
 .main--content {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: calc(100vh - 4rem);
+  @include breakpoints.desktop {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: calc(100vh - 4rem);
 
-  .page--aside {
-    grid-column: 1;
+    .page--aside {
+      grid-column: 1;
 
-    @apply pt-8;
+      @apply pt-8;
+    }
 
-    .navbar--menu {
-      .navbar--item {
-        @apply px-4 py-3 cursor-pointer;
+    .page--content {
+      grid-column: 2 / -1;
+      padding: 1rem 2rem;
 
-        .navbar--link {
-          @apply flex items-center gap-2;
-        }
-
-        &:hover {
-          @apply bg-gray-100;
-        }
-      }
+      @apply h-full;
+      @apply overflow-y-auto;
     }
   }
 
-  .page--content {
-    grid-column: 2 / -1;
-    padding: 1rem 2rem;
+  @include breakpoints.tablet {
+    .page--aside {
+      @apply hidden;
+    }
 
-    @apply h-full;
-    @apply overflow-y-auto;
+    .page--content {
+      padding: 1rem;
+    }
+  }
+}
+
+.navbar--item {
+  @include breakpoints.tablet {
+    &.navbar--item-settings {
+      @apply hidden;
+    }
+  }
+
+  .navbar--link {
+    @apply flex items-center gap-2 px-3 py-2 hover:bg-gray-100 hover:rounded;
+  }
+}
+
+.assets--page {
+  @apply flex flex-col gap-4;
+
+  .group--header {
+    @apply text-2xl mb-4;
+  }
+
+  .group--contents {
+    @apply flex flex-col gap-4;
+
+    .contents--header {
+      @apply text-base text-gray-700 flex items-center gap-2 cursor-pointer;
+
+      svg {
+        @apply hidden;
+      }
+
+      &:hover {
+        svg {
+          @apply inline-flex transition-all;
+        }
+      }
+    }
   }
 }

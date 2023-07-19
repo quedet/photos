@@ -1,0 +1,17 @@
+@use "../foundation/breakpoints" as breakpoints;
+
+.modal {
+  @apply max-h-screen w-full max-w-4xl relative;
+
+  @include breakpoints.mobile {
+    @apply h-screen overflow-hidden;
+  }
+
+  .modal--container {
+    @apply m-1 bg-white rounded shadow;
+
+    @include breakpoints.mobile {
+      @apply h-full m-0 overflow-y-auto;
+    }
+  }
+}

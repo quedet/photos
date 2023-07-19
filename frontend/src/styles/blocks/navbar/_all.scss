@@ -1,0 +1,12 @@
+@use "../../foundation/breakpoints" as breakpoints;
+@import "aside.scss";
+
+.navbar--brand {
+  @apply flex items-center gap-4;
+
+  .brand--icon {
+    @include breakpoints.tablet {
+      @apply w-6 h-6;
+    }
+  }
+}

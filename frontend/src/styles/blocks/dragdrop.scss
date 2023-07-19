@@ -1,3 +1,5 @@
+@use "../foundation/breakpoints" as breakpoints;
+
 .header--section {
   @apply py-6;
 
@@ -11,16 +13,27 @@
 }
 
 .main--section {
-  @apply flex gap-4 items-start;
+  @apply flex gap-4;
+
+  @include breakpoints.desktop {
+    @apply items-start;
+  }
+
+  @include breakpoints.tablet {
+    @apply flex-col;
+  }
 }
 
 .drop--section {
   flex: 4;
-  order: 1;
   min-height: 250px;
   border: 1px dashed #a8b3e3;
   border-radius: 0.25rem;
   padding: 1.5rem 1rem;
+
+  @include breakpoints.desktop {
+    order: 1;
+  }
 
   .col {
     display: flex;
@@ -49,8 +62,12 @@
 
 .list--section {
   flex: 8;
-  order: 0;
   text-align: left;
+  display: none;
+
+  @include breakpoints.desktop {
+    order: 0;
+  }
 
   .list--title {
     @apply text-base;
@@ -82,6 +99,10 @@
     .col {
       flex: 0.1;
 
+      &:not(:last-of-type) {
+        @apply border-b;
+      }
+
       svg {
         .cross,
         .tick {
@@ -104,8 +125,14 @@
       }
 
       &:nth-child(1) {
-        flex: 0.15;
+        flex: 0.25;
         text-align: center;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: contain;
+        }
       }
 
       &:nth-child(2) {
@@ -117,9 +144,9 @@
         .file--name {
           .name {
             overflow: hidden;
-            white-space: nowrap;
             text-overflow: ellipsis;
             display: inline-block;
+            margin-bottom: 0.5rem;
           }
 
           span {
@@ -150,6 +177,10 @@
           margin-top: 3px;
           color: #707ea0;
         }
+      }
+
+      &:nth-child(3) {
+        @apply flex items-center justify-center p-2;
       }
     }
 

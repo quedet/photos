@@ -3,26 +3,31 @@
 {% load assets_tags %}
 
 {% block content %}
-<div class="flex flex-col gap-4">
+<div class="assets--page">
   {% regroup photos by created.month as monthly_photos %}
   {% for photo in monthly_photos %}
-  <div data-controller="masonry">
-    <div class="text-2xl mb-4">
+  <div data-controller="masonry" class="section--group">
+    <div class="group--header">
       {{ photo.list|get_date|date:"F Y" }}
     </div>
+    <div class="group--contents">
       {% regroup photo.list by created.day as daily_photos %}
       {% for item in daily_photos %}
-      <div class="text-base mb-4">
-        {{ item.list|get_date|date:"l. d M Y"}}
+      <div class="contents--header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 44 44"><rect width="41" height="41" x="1.5" y="1.5" fill="none" stroke="currentColor" stroke-width="3" rx="2.5"/><path fill="currentColor" d="m17.758 26.254l13.198-13.211l2.36 2.358l-15.557 15.557l-7.072-7.071l2.359-2.358l4.712 4.725Z"/></svg>
+        <span>
+          {{ item.list|get_date|date:"l. d M Y"}}
+        </span>
       </div>
-      <div data-controller="lightbox" data-masonry-target="grid">
+      <div data-controller="lightbox" class="contents--assets assets--list">
         {% for image in item.list %}
-        <a href="{{image.source.url}}" class="grid-item">
+        <a href="{{image.source.url}}" class="asset--item">
           <img src="{{image.source.url}}" alt="{{image.alt}}">
         </a>
         {% endfor %}
       </div>
       {% endfor %}
+    </div>
   </div>
   {% endfor %}
 </div>
