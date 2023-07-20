@@ -1,0 +1,49 @@
+{% extends 'layout/base.html' %}
+
+{% load assets_tags %}
+
+{% block content %}
+  {% if photos.count > 0 %}
+    <header class="mb-6">
+      <h1 class="text-3xl font-semibold">Your Favorite Photos</h1>
+    </header>
+    <div class="assets--page">
+      {% regroup photos by created.month as monthly_photos %}
+      {% for photo in monthly_photos %}
+      <div data-controller="masonry" class="section--group">
+        <div class="group--header">
+          {{ photo.list|get_date|date:"F Y" }}
+        </div>
+        <div class="group--contents">
+          {% regroup photo.list by created.day as daily_photos %}
+          {% for item in daily_photos %}
+          <div class="contents--header">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 44 44"><rect width="41" height="41" x="1.5" y="1.5" fill="none" stroke="currentColor" stroke-width="3" rx="2.5"/><path fill="currentColor" d="m17.758 26.254l13.198-13.211l2.36 2.358l-15.557 15.557l-7.072-7.071l2.359-2.358l4.712 4.725Z"/></svg>
+            <span>
+              {{ item.list|get_date|date:"l. d M Y"}}
+            </span>
+          </div> 
+          <!-- data-controller="lightbox" -->
+          <div class="contents--assets assets--list">
+            {% for asset in item.list %}
+            <a href="{{asset.image.get_absolute_url}}" class="asset--item">
+              <img src="{{asset.image.source.url}}" alt="{{asset.image.alt}}">
+            </a>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+  <div class="assets--no-favorite">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 2048 2048"><path fill="currentColor" d="M1609 992q-125 0-234 44t-192 122t-133 186t-56 235l-610 469l248-794L0 768h784L1024 0l240 768h784l-313 240q-31-7-62-11t-64-5zm-9 160q93 0 174 35t142 96t96 142t36 175q0 93-35 174t-96 142t-142 96t-175 36q-93 0-174-35t-142-96t-96-142t-36-175q0-93 35-174t96-142t142-96t175-36zm-320 448q0 66 25 124t69 101t102 69t124 26q47 0 92-13t84-40l-443-443q-26 39-39 84t-14 92zm587 176q26-39 39-84t14-92q0-66-25-124t-69-101t-102-69t-124-26q-47 0-92 13t-84 40l443 443z"/></svg>
+      <p class="mt-4 text-center">
+        No Favorites Yet
+      </p>
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

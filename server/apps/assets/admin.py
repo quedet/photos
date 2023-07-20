@@ -1,7 +1,7 @@
 from django.contrib import admin
 from guardian.admin import GuardedModelAdminMixin
 
-from apps.assets.models import Image, Tag
+from apps.assets.models import Image, Favorite
 # Register your models here.
 
 
@@ -11,7 +11,6 @@ class ImageAdmin(GuardedModelAdminMixin, admin.ModelAdmin):
     # exclude = ['slug']
 
 
-@admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
-    list_display = ['name', 'slug']
-    exclude = ['slug']
+@admin.register(Favorite)
+class FavoriteAdmin(GuardedModelAdminMixin, admin.ModelAdmin):
+    list_display = ['owner', 'image', 'created']

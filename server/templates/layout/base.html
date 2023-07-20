@@ -94,9 +94,9 @@
           <button type="button" data-action="slideover#_show" class="brand--burger">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M3 8V7h17v1H3m17 4v1H3v-1h17M3 17h17v1H3v-1Z"/></svg>
           </button>
-          <a href="/" class="navbar--brand">
+          <a href="{% url 'assets:assets-list' %}" class="navbar--brand">
             <svg xmlns="http://www.w3.org/2000/svg" class="brand--icon" width="50" height="50" viewBox="0 0 256 256"><path fill="#FBBB05" d="M64 58.149c35.328 0 64 28.672 64 64V128H5.851C2.633 128 0 125.367 0 122.149c0-35.328 28.672-64 64-64Z"/><path fill="#E94335" d="M197.851 64c0 35.328-28.672 64-64 64H128V5.851C128 2.633 130.633 0 133.851 0c35.328 0 64 28.672 64 64Z"/><path fill="#4285F4" d="M192 197.851c-35.328 0-64-28.672-64-64V128h122.149c3.218 0 5.851 2.633 5.851 5.851c0 35.328-28.672 64-64 64Z"/><path fill="#0F9D58" d="M58.149 192c0-35.328 28.672-64 64-64H128v122.149c0 3.218-2.633 5.851-5.851 5.851c-35.328 0-64-28.672-64-64Z"/></svg>
-            <span class="brand--text">Photos</span>  
+            <span class="brand--text">Photos</span>
           </a>
         </div>
         <form method="get" class="navbar--search bg-gray-100 rounded flex items-center px-3 ml-4">
@@ -114,7 +114,7 @@
               </span>
             </a>
             <!-- Modal Container -->
-            <div data-modal-target="container"  data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center bg-black bg-opacity-60" style="z-index: 999999;">
+            <div data-modal-target="container"  data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center bg-black bg-opacity-60 z-50">
               <!-- Modal Inner Container -->
               <div class="modal">
                 <!-- Modal Card -->
@@ -150,7 +150,7 @@
       <aside class="page--aside aside--navbar">
         <nav class="navbar--menu">
           <div class="navbar--item">
-            <a href="#" class="navbar--link">
+            <a href="{% url 'assets:assets-list' %}" class="navbar--link">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" transform="translate(3 3)"><g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5.5h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2v-10a2 2 0 0 1 2-2z"/><path d="m14.5 10.5l-3-3l-3 2.985m4 4.015l-9-9l-3 3"/></g><circle cx="11" cy="4" r="1" fill="currentColor"/></g></svg>
               <span>Photos</span>
             </a>
@@ -162,7 +162,7 @@
             </a>
           </div>
           <div class="navbar--item">
-            <a href="#" class="navbar--link">
+            <a href="{% url 'assets:assets-favorites' %}" class="navbar--link">
               <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M21.919 10.127a1 1 0 0 0-.845-1.136l-5.651-.826l-2.526-5.147a1.037 1.037 0 0 0-1.795.001L8.577 8.165l-5.651.826a1 1 0 0 0-.556 1.704l4.093 4.013l-.966 5.664a1.002 1.002 0 0 0 1.453 1.052l5.05-2.67l5.049 2.669a1 1 0 0 0 1.454-1.05l-.966-5.665l4.094-4.014a1 1 0 0 0 .288-.567zm-5.269 4.05a.502.502 0 0 0-.143.441l1.01 5.921l-5.284-2.793a.505.505 0 0 0-.466 0L6.483 20.54l1.01-5.922a.502.502 0 0 0-.143-.441L3.07 9.98l5.912-.864a.503.503 0 0 0 .377-.275L12 3.46l2.64 5.382a.503.503 0 0 0 .378.275l5.913.863l-4.28 4.197z"/></svg>
               <span>Favorites</span>
             </a>

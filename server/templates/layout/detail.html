@@ -1,0 +1,20 @@
+{% load webpack_loader static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  {% stylesheet_pack 'app' %}
+  {% javascript_pack 'app' attrs="defer" %}
+  {% stylesheet_pack 'hotwired' attrs="data-turbo-track='reload'" %}
+  {% javascript_pack 'hotwired' attrs="defer data-turbo-track='reload'" %}
+</head>
+<body class="bg-black">
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

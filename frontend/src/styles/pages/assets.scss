@@ -134,3 +134,15 @@
     }
   }
 }
+
+.assets--no-favorite {
+  @apply flex items-center justify-center;
+
+  @include breakpoints.desktop {
+    height: calc(100vh - 6rem);
+  }
+
+  @include breakpoints.tablet {
+    height: calc(100vh - 12rem);
+  }
+}

@@ -16,7 +16,7 @@
   }
 
   .asset--item {
-    width: max-content;
+    @apply z-10 relative w-max;
 
     @include breakpoints.desktop {
       height: 150px;
@@ -32,6 +32,37 @@
 
     img {
       @apply w-full h-full object-fill;
+    }
+
+    .item--form {
+      @apply hidden text-white absolute top-1 right-1;
+
+      button {
+        @apply p-1 hover:bg-gray-500 hover:rounded-full hover:bg-opacity-50;
+
+        svg {
+          width: 1.15rem;
+          height: 1.15rem;
+        }
+      }
+    }
+
+    &:hover {
+      .item--form {
+        @apply block;
+      }
+
+      .item--link {
+        &::after {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(0deg, #00000015, #0000009e);
+        }
+      }
     }
   }
 }

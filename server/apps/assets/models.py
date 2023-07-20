@@ -4,12 +4,13 @@ from django.conf import settings
 from guardian.shortcuts import assign_perm
 
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.urls import reverse
+from django.db.models.signals import post_save, post_delete
 # Create your models here.
 
 from server.utils import generate_identifier
 
-from django.utils.text import slugify
+# from django.utils.text import slugify
 
 
 class Image(models.Model):
@@ -40,6 +41,9 @@ class Image(models.Model):
             models.Index(fields=['-created'])
         ]
 
+    def get_absolute_url(self):
+        return reverse('assets:assets-detail', args=[self.slug])
+
 
 @receiver(post_save, sender=Image)
 def image_post_create(sender, instance, created, **kwargs):
@@ -54,28 +58,21 @@ def image_post_create(sender, instance, created, **kwargs):
             assign_perm(perm, owner, instance)
 
 
-class Tag(models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    slug = models.SlugField(max_length=100, null=True, blank=True)
-
-    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
-        self.slug = slugify(self.name)
-
-        if update_fields is not None and 'name' in update_fields:
-            update_fields = {"slug"}.union(update_fields)
-        return super().save(force_insert, force_update, using, update_fields)
-
-    class Meta:
-        indexes = [
-            models.Index(fields=['slug'])
-        ]
+@receiver(post_delete, sender=Image)
+def image_post_delete(sender, instance, **kwargs):
+    """
+    Remove image from filesystem after being deleted from the database.
+    """
+    if instance.source:
+        instance.source.delete(save=False)
 
 
-class TaggedItem(models.Model):
-    tag = models.ForeignKey(
-        Tag, on_delete=models.CASCADE, related_name='items')
-    image = models.ForeignKey(
-        Image, on_delete=models.CASCADE, related_name='tags')
+class Favorite(models.Model):
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='favorites')
+    image = models.OneToOneField(
+        Image, on_delete=models.CASCADE, related_name='favorite')
+
     created = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -83,3 +80,18 @@ class TaggedItem(models.Model):
         indexes = [
             models.Index(fields=['-created'])
         ]
+
+
+@receiver(post_save, sender=Favorite)
+def favorite_post_create(sender, instance, created, **kwargs):
+    """
+    Assign permissions for all newly created favorites instances.
+    """
+    if created and instance.owner.username != settings.ANONYMOUS_USER_NAME:
+        owner = User.objects.get(username=instance.owner.username)
+
+        permissions = ['assets.view_favorite', 'assets.change_favorite',
+                       'assets.add_favorite', 'assets.delete_favorite']
+
+        for perm in permissions:
+            assign_perm(perm, owner, instance)
