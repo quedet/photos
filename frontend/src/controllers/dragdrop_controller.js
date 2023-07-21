@@ -67,36 +67,38 @@ export default class extends Controller {
     const reader = new FileReader();
     reader.readAsDataURL(file);
 
-    const listSection = document.querySelector('.list--section');
+    // const listSection = document.querySelector('.list--section');
     const listContainer = document.querySelector('.list');
+    const placeholder = document.getElementById("placeholder");
+
+    placeholder.style.display = "None";
 
     const csrftoken = Cookie.get('csrftoken');
     const url = `${window.location.protocol}//${window.location.host}` + this.urlValue;
 
-    listSection.style.display = "block";
+    // listSection.style.display = "block";
     let li = document.createElement('li');
     li.classList.add('in-prog');
     
     reader.onloadend = () => {
       li.innerHTML = `
-        <div class="col">
-          <img src="${reader.result}" alt="${file.name}" class="w-full">
+        <div class="col col--image">
+          <img src="${reader.result}" alt="${file.name}">
         </div>
-        <div class="col">
-          <div class="file--name">
-            <div class="name">${file.name}</div>
-            <span>50%</span>
+        <div class="col col--information">
+          <div class="col--item flex items-center justify-between">
+            <span class="file--percentage">50%</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="cross" width="15" height="15" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M12.854 2.854a.5.5 0 0 0-.708-.708L7.5 6.793L2.854 2.146a.5.5 0 1 0-.708.708L6.793 7.5l-4.647 4.646a.5.5 0 0 0 .708.708L7.5 8.207l4.646 4.647a.5.5 0 0 0 .708-.708L8.207 7.5l4.647-4.646Z" clip-rule="evenodd"/></svg>
           </div>
           <div class="file--progress">
             <span></span>
           </div>
-          <div class="file--size">
+          <div class="col--item flex items-center justify-between">
+            <div class="file--size">
             ${(file.size/(1024*1024)).toFixed(2)} MB
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="tick" width="15" height="15" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M14.707 3L5.5 12.207L.293 7L1 6.293l4.5 4.5l8.5-8.5l.707.707Z" clip-rule="evenodd"/></svg>
           </div>
-        </div>
-        <div class="col">
-          <svg xmlns="http://www.w3.org/2000/svg" class="cross" width="15" height="15" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M12.854 2.854a.5.5 0 0 0-.708-.708L7.5 6.793L2.854 2.146a.5.5 0 1 0-.708.708L6.793 7.5l-4.647 4.646a.5.5 0 0 0 .708.708L7.5 8.207l4.646 4.647a.5.5 0 0 0 .708-.708L8.207 7.5l4.647-4.646Z" clip-rule="evenodd"/></svg>
-          <svg xmlns="http://www.w3.org/2000/svg" class="tick" width="15" height="15" viewBox="0 0 15 15"><path fill="currentColor" fill-rule="evenodd" d="M14.707 3L5.5 12.207L.293 7L1 6.293l4.5 4.5l8.5-8.5l.707.707Z" clip-rule="evenodd"/></svg>
         </div>
       `;
       listContainer.prepend(li);
@@ -120,6 +122,7 @@ export default class extends Controller {
 
     http.open('POST', url, true);
     http.setRequestHeader('X-CSRFToken', csrftoken);
+    http.setRequestHeader('Access-Control-Allow-Origin', '*');
     http.send(data);
   }
 }

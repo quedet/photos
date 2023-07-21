@@ -3,7 +3,7 @@
     @apply h-screen;
 
     .detail--header {
-      @apply invisible flex items-center justify-between fixed top-0 left-0 w-full h-16 text-white px-4;
+      @apply invisible flex items-center justify-between fixed top-0 left-0 w-full h-16 text-white px-4 z-30;
 
       transition: all 0.5s;
       background-image: linear-gradient(0deg, #0000000e, #0000009e);

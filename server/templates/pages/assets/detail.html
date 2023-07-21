@@ -2,6 +2,8 @@
 
 {% load assets_tags %}
 
+{% block title %}Photo - Google Photos{% endblock %}
+
 {% block content %}
 <div 
     data-controller="slideover"
@@ -73,7 +75,7 @@
       </div>
     </div>
 
-    <div class="detail--wrapper">
+    <div class="detail--wrapper" data-controller="zoom">
       <header class="detail--header">
         <div>
           <button>
@@ -86,8 +88,13 @@
           <button class="flex items-center justify-center p-2" title="Share">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M18 22q-1.25 0-2.125-.875T15 19q0-.175.025-.363t.075-.337l-7.05-4.1q-.425.375-.95.588T6 15q-1.25 0-2.125-.875T3 12q0-1.25.875-2.125T6 9q.575 0 1.1.213t.95.587l7.05-4.1q-.05-.15-.075-.337T15 5q0-1.25.875-2.125T18 2q1.25 0 2.125.875T21 5q0 1.25-.875 2.125T18 8q-.575 0-1.1-.212t-.95-.588L8.9 11.3q.05.15.075.338T9 12q0 .175-.025.363T8.9 12.7l7.05 4.1q.425-.375.95-.587T18 16q1.25 0 2.125.875T21 19q0 1.25-.875 2.125T18 22Zm0-16q.425 0 .713-.288T19 5q0-.425-.288-.713T18 4q-.425 0-.713.288T17 5q0 .425.288.713T18 6ZM6 13q.425 0 .713-.288T7 12q0-.425-.288-.713T6 11q-.425 0-.713.288T5 12q0 .425.288.713T6 13Zm12 7q.425 0 .713-.288T19 19q0-.425-.288-.713T18 18q-.425 0-.713.288T17 19q0 .425.288.713T18 20Zm0-15ZM6 12Zm12 7Z"/></svg>
           </button>
-          <button class="flex items-center justify-center p-2" title="Edit">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 128h80m-384 0h240m64 256h80m-384 0h240m-96-128h240m-384 0h80"/><circle cx="336" cy="128" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="176" cy="256" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="336" cy="384" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+          <button class="flex items-center justify-center p-2" title="Zoom" data-zoom-target="zoomButton">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20"><g fill="currentColor"><path fill-rule="evenodd" d="M5.182 5.182a5.5 5.5 0 1 0 7.778 7.778a5.5 5.5 0 0 0-7.778-7.778Zm7.071 7.071A4.5 4.5 0 1 1 5.89 5.889a4.5 4.5 0 0 1 6.364 6.364Z" clip-rule="evenodd"/><path d="M12 14.121a1 1 0 0 1 1.414-1.414l3.789 3.789a1 1 0 0 1-1.414 1.414L12 14.12ZM7.207 9.664a.5.5 0 1 1 0-1h4a.5.5 0 1 1 0 1h-4Z"/><path d="M8.707 7.164a.5.5 0 0 1 1 0v4a.5.5 0 0 1-1 0v-4Z"/></g></svg>
+          </button>
+          <button title="Edit">
+            <a href="{% url 'assets:assets-edit' photo.slug %}" class="flex items-center justify-center p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 128h80m-384 0h240m64 256h80m-384 0h240m-96-128h240m-384 0h80"/><circle cx="336" cy="128" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="176" cy="256" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/><circle cx="336" cy="384" r="32" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/></svg>
+            </a>
           </button>
           <button class="flex items-center justify-center p-2" title="Info" data-action="slideover#_show">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 28 28"><path fill="currentColor" d="M15 8a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm-1.75 3.75v7.5a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-1.5 0ZM2 14C2 7.373 7.373 2 14 2s12 5.373 12 12s-5.373 12-12 12S2 20.627 2 14ZM14 3.5C8.201 3.5 3.5 8.201 3.5 14S8.201 24.5 14 24.5S24.5 19.799 24.5 14S19.799 3.5 14 3.5Z"/></svg>
@@ -103,7 +110,8 @@
           </button>
         </div>
       </header>
-      <div class="detail--content">
+      <div class="detail--preview fixed top-20 right-2 border  z-30  w-52 h-52 overflow-hidden" data-zoom-target="result"></div>
+      <div class="detail--content overflow-hidden">
         {% if previous_photo %}
         <button class="swipper--previous swipper--button">
           <a href="{{ previous_photo.get_absolute_url }}">
@@ -112,7 +120,7 @@
         </button>
         {% endif %}
         <div class="h-full">
-          <img src="{{ photo.source.url }}" alt="{{ item.alt }}" class="w-full h-full object-contain">
+          <img src="{{ photo.source.url }}" alt="{{ item.alt }}" class="w-full h-full object-contain" data-zoom-target="image">
         </div>
         {% if next_photo %}
         <button class="swipper--next swipper--button">

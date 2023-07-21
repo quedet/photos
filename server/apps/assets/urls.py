@@ -9,5 +9,6 @@ urlpatterns = [
     path('favorites/<id>/', views.MarkAssetAsFavorite.as_view(),
          name='mark-as-favorite'),
     path('assets/create/', views.CreateAssetsView.as_view(), name='assets-create'),
-    path('photo/<slug>/', views.AssetDetailView.as_view(), name='assets-detail')
+    path('photo/<slug>/', views.AssetDetailView.as_view(), name='assets-detail'),
+    path('photo/<slug>/edit/', views.AssetEditView.as_view(), name='assets-edit')
 ]

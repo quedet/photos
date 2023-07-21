@@ -1,0 +1,54 @@
+{% extends 'layout/detail.html' %}
+
+{% load assets_tags %}
+
+{% block title %}Edit The Photo{% endblock %}
+
+{% block content %}
+<div class="assets--detail">
+  <div class="detail--wrapper" data-controller="cropper">
+    <header class="detail--header">
+      <div>
+        <button>
+          <a href="{{ photo.get_absolute_url }}" class="flex items-center justify-center p-2 text-white hover:bg-gray-800 hover:rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><g id="evaArrowBackOutline0"><g id="evaArrowBackOutline1"><path id="evaArrowBackOutline2" fill="currentColor" d="M19 11H7.14l3.63-4.36a1 1 0 1 0-1.54-1.28l-5 6a1.19 1.19 0 0 0-.09.15c0 .05 0 .08-.07.13A1 1 0 0 0 4 12a1 1 0 0 0 .07.36c0 .05 0 .08.07.13a1.19 1.19 0 0 0 .09.15l5 6A1 1 0 0 0 10 19a1 1 0 0 0 .64-.23a1 1 0 0 0 .13-1.41L7.14 13H19a1 1 0 0 0 0-2Z"/></g></g></svg>
+          </a>
+        </button>
+      </div>
+      <div class="flex items-center gap-4">
+        <button class="flex items-center justify-center p-2" title="Share">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M18 22q-1.25 0-2.125-.875T15 19q0-.175.025-.363t.075-.337l-7.05-4.1q-.425.375-.95.588T6 15q-1.25 0-2.125-.875T3 12q0-1.25.875-2.125T6 9q.575 0 1.1.213t.95.587l7.05-4.1q-.05-.15-.075-.337T15 5q0-1.25.875-2.125T18 2q1.25 0 2.125.875T21 5q0 1.25-.875 2.125T18 8q-.575 0-1.1-.212t-.95-.588L8.9 11.3q.05.15.075.338T9 12q0 .175-.025.363T8.9 12.7l7.05 4.1q.425-.375.95-.587T18 16q1.25 0 2.125.875T21 19q0 1.25-.875 2.125T18 22Zm0-16q.425 0 .713-.288T19 5q0-.425-.288-.713T18 4q-.425 0-.713.288T17 5q0 .425.288.713T18 6ZM6 13q.425 0 .713-.288T7 12q0-.425-.288-.713T6 11q-.425 0-.713.288T5 12q0 .425.288.713T6 13Zm12 7q.425 0 .713-.288T19 19q0-.425-.288-.713T18 18q-.425 0-.713.288T17 19q0 .425.288.713T18 20Zm0-15ZM6 12Zm12 7Z"/></svg>
+        </button>
+        <button class="flex items-center justify-center p-2" title="Favorites">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 15 15"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m7.5 12.04l-4.326 2.275L4 9.497L.5 6.086l4.837-.703L7.5 1l2.163 4.383l4.837.703L11 9.497l.826 4.818L7.5 12.041Z"/></svg>
+        </button>
+      </div>
+    </header>
+    <!-- -->
+    <div class="detail--preview fixed top-20 right-2 border  z-30  w-52 h-52 overflow-hidden" data-cropper-target="result"></div>
+    <div class="detail--content overflow-hidden">
+      <div class="h-full w-full">
+        <img src="{{ photo.source.url }}" alt="{{ item.alt }}" id="image" class="w-full h-full object-contain" data-cropper-target="image">
+      </div>
+      <!-- <cropper-canvas>
+        <cropper-image src="{{ photo.source.url }}" alt="Picture"></cropper-image>
+        <cropper-shade hidden></cropper-shade>
+        <cropper-handle action="select" plain></cropper-handle>
+        <cropper-selection initial-coverage="0.5" movable resizable zoomable>
+          <cropper-grid role="grid" covered></cropper-grid>
+          <cropper-crosshair centered></cropper-crosshair>
+          <cropper-handle action="move" theme-color="rgba(255, 255, 255, 0.35)"></cropper-handle>
+          <cropper-handle action="n-resize"></cropper-handle>
+          <cropper-handle action="e-resize"></cropper-handle>
+          <cropper-handle action="s-resize"></cropper-handle>
+          <cropper-handle action="w-resize"></cropper-handle>
+          <cropper-handle action="ne-resize"></cropper-handle>
+          <cropper-handle action="nw-resize"></cropper-handle>
+          <cropper-handle action="se-resize"></cropper-handle>
+          <cropper-handle action="sw-resize"></cropper-handle>
+        </cropper-selection>
+      </cropper-canvas> -->
+    </div>
+  </div>
+</div>
+{% endblock %}

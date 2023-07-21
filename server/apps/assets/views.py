@@ -101,6 +101,16 @@ class AssetDetailView(LoginRequiredMixin, TemplateView):
         })
 
 
+class AssetEditView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/assets/edit.html'
+
+    def get(self, request, *args, **kwargs):
+        photo = get_object_or_404(Image, slug=kwargs['slug'])
+        return self.render_to_response({
+            'photo': photo
+        })
+
+
 class FavoriteAssetsView(LoginRequiredMixin, TemplateView):
     template_name = 'pages/assets/favorites.html'
 
