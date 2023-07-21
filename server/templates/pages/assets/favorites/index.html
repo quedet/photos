@@ -26,7 +26,7 @@
           <!-- data-controller="lightbox" -->
           <div class="contents--assets assets--list">
             {% for asset in item.list %}
-            <a href="{{asset.image.get_absolute_url}}" class="asset--item">
+            <a href="{% url 'assets:assets-favorite-detail' asset.image.slug %}" class="asset--item">
               <img src="{{asset.image.source.url}}" alt="{{asset.image.alt}}">
             </a>
             {% endfor %}

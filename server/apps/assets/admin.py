@@ -1,7 +1,7 @@
 from django.contrib import admin
 from guardian.admin import GuardedModelAdminMixin
 
-from apps.assets.models import Image, Favorite
+from apps.assets.models import Image, Favorite, Trash
 # Register your models here.
 
 
@@ -13,4 +13,9 @@ class ImageAdmin(GuardedModelAdminMixin, admin.ModelAdmin):
 
 @admin.register(Favorite)
 class FavoriteAdmin(GuardedModelAdminMixin, admin.ModelAdmin):
+    list_display = ['owner', 'image', 'created']
+
+
+@admin.register(Trash)
+class TrashAdmin(GuardedModelAdminMixin, admin.ModelAdmin):
     list_display = ['owner', 'image', 'created']

@@ -95,3 +95,33 @@ def favorite_post_create(sender, instance, created, **kwargs):
 
         for perm in permissions:
             assign_perm(perm, owner, instance)
+
+
+class Trash(models.Model):
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='trash')
+    image = models.OneToOneField(
+        Image, on_delete=models.CASCADE, related_name='trashed')
+
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+        indexes = [
+            models.Index(fields=['-created'])
+        ]
+
+
+@receiver(post_save, sender=Trash)
+def favorite_post_create(sender, instance, created, **kwargs):
+    """
+    Assign permissions for all newly created trash instances.
+    """
+    if created and instance.owner.username != settings.ANONYMOUS_USER_NAME:
+        owner = User.objects.get(username=instance.owner.username)
+
+        permissions = ['assets.view_trash', 'assets.change_trash',
+                       'assets.add_trash', 'assets.delete_trash']
+
+        for perm in permissions:
+            assign_perm(perm, owner, instance)

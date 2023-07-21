@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse
 import http
 from apps.assets.forms import ImageForm
-from apps.assets.models import Image, Favorite
+from apps.assets.models import Image, Favorite, Trash
 from guardian.shortcuts import get_objects_for_user
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 # Create your views here.
@@ -112,13 +112,62 @@ class AssetEditView(LoginRequiredMixin, TemplateView):
 
 
 class FavoriteAssetsView(LoginRequiredMixin, TemplateView):
-    template_name = 'pages/assets/favorites.html'
+    template_name = 'pages/assets/favorites/index.html'
 
     def get(self, request, *args, **kwargs):
         photos = get_objects_for_user(
             request.user, 'assets.view_favorite', Favorite, any_perm=True, with_superuser=False)
         return self.render_to_response({
             'photos': photos
+        })
+
+
+class FavoriteAssetDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/assets/favorites/detail.html'
+
+    def get(self, request, *args, **kwargs):
+        all_photos = get_objects_for_user(
+            request.user, 'assets.view_favorite', Favorite, any_perm=True)
+        paginator = Paginator(all_photos, 1)
+
+        current_photo = get_object_or_404(Favorite, image__slug=kwargs['slug'])
+        photos_ids = [item.image.id for item in all_photos]
+        current_index = photos_ids.index(current_photo.image.id) + 1
+
+        try:
+            current_photo = paginator.page(current_index)
+        except PageNotAnInteger:
+            current_photo = paginator.page(1)
+        except EmptyPage:
+            current_photo = paginator.page(paginator.num_pages)
+
+        next_photo = None
+        next_photo_index = None
+        next_photo_id = None
+
+        if current_photo.has_next():
+            next_photo_index = current_photo.next_page_number() - 1
+            next_photo_id = photos_ids[next_photo_index]
+
+            if next_photo_id in photos_ids:
+                next_photo = Favorite.objects.get(image_id=next_photo_id)
+
+        previous_photo = None
+        previous_photo_index = None
+        previous_photo_id = None
+
+        if current_photo.has_previous():
+            previous_photo_index = current_photo.previous_page_number() - 1
+            previous_photo_id = photos_ids[previous_photo_index]
+
+            if previous_photo_id in photos_ids:
+                previous_photo = Favorite.objects.get(
+                    image_id=previous_photo_id)
+
+        return self.render_to_response({
+            'photo': current_photo.object_list[0].image,
+            'next_photo': next_photo,
+            'previous_photo': previous_photo
         })
 
 
@@ -132,6 +181,83 @@ class MarkAssetAsFavorite(LoginRequiredMixin, TemplateView):
         if not created:
             favorite.delete()
             action = "mark"
+
+        return TurboStreamResponse([
+            TurboStream(f"asset--{kwargs['id']}--button").update.template("components/blocks/favorite.html", {
+                "action": action
+            })
+        ])
+
+
+class TrashAssetsView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/assets/trash/index.html'
+
+    def get(self, request, *args, **kwargs):
+        photos = get_objects_for_user(
+            request.user, 'assets.view_trash', Trash, any_perm=True, with_superuser=False)
+        return self.render_to_response({
+            'photos': photos
+        })
+
+
+class TrashAssetDetailView(LoginRequiredMixin, TemplateView):
+    template_name = 'pages/assets/trash/detail.html'
+
+    def get(self, request, *args, **kwargs):
+        all_photos = get_objects_for_user(
+            request.user, 'assets.view_trash', Trash, any_perm=True)
+        paginator = Paginator(all_photos, 1)
+
+        current_photo = get_object_or_404(Trash, image__slug=kwargs['slug'])
+        photos_ids = [item.image.id for item in all_photos]
+        current_index = photos_ids.index(current_photo.image.id) + 1
+
+        try:
+            current_photo = paginator.page(current_index)
+        except PageNotAnInteger:
+            current_photo = paginator.page(1)
+        except EmptyPage:
+            current_photo = paginator.page(paginator.num_pages)
+
+        next_photo = None
+        next_photo_index = None
+        next_photo_id = None
+
+        if current_photo.has_next():
+            next_photo_index = current_photo.next_page_number() - 1
+            next_photo_id = photos_ids[next_photo_index]
+
+            if next_photo_id in photos_ids:
+                next_photo = Trash.objects.get(image_id=next_photo_id)
+
+        previous_photo = None
+        previous_photo_index = None
+        previous_photo_id = None
+
+        if current_photo.has_previous():
+            previous_photo_index = current_photo.previous_page_number() - 1
+            previous_photo_id = photos_ids[previous_photo_index]
+
+            if previous_photo_id in photos_ids:
+                previous_photo = Trash.objects.get(image_id=previous_photo_id)
+
+        return self.render_to_response({
+            'photo': current_photo.object_list[0].image,
+            'next_photo': next_photo,
+            'previous_photo': previous_photo
+        })
+
+
+class MarkAssetAsTrashed(LoginRequiredMixin, TemplateView):
+    def post(self, request, *args, **kwargs):
+        image = get_object_or_404(Image, id=kwargs['id'])
+        trash, created = Trash.objects.get_or_create(
+            owner=request.user, image=image)
+        action = "restore"
+
+        if not created:
+            trash.delete()
+            action = "delete"
 
         return TurboStreamResponse([
             TurboStream(f"asset--{kwargs['id']}--button").update.template("components/blocks/favorite.html", {
