@@ -99,8 +99,8 @@
           <button class="flex items-center justify-center p-2" title="Info" data-action="slideover#_show">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 28 28"><path fill="currentColor" d="M15 8a1 1 0 1 1-2 0a1 1 0 0 1 2 0Zm-1.75 3.75v7.5a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-1.5 0ZM2 14C2 7.373 7.373 2 14 2s12 5.373 12 12s-5.373 12-12 12S2 20.627 2 14ZM14 3.5C8.201 3.5 3.5 8.201 3.5 14S8.201 24.5 14 24.5S24.5 19.799 24.5 14S19.799 3.5 14 3.5Z"/></svg>
           </button>
-          <button class="flex items-center justify-center p-2" title="Favorites">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 15 15"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m7.5 12.04l-4.326 2.275L4 9.497L.5 6.086l4.837-.703L7.5 1l2.163 4.383l4.837.703L11 9.497l.826 4.818L7.5 12.041Z"/></svg>
+          <button class="flex items-center justify-center p-2" title="Favorites"  id="asset--{{photo.id}}--button" data-turbo-temporary="true" data-id="{{photo.id}}"  data-assets-target="button">
+            {% include 'components/blocks/favorite.html' with action=image.favorite|get_action %}
           </button>
           <button class="flex items-center justify-center p-2" title="Delete">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1.75V3h5.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H8V1.75C8 .784 8.784 0 9.75 0h4.5C15.216 0 16 .784 16 1.75Zm-6.5 0V3h5V1.75a.25.25 0 0 0-.25-.25h-4.5a.25.25 0 0 0-.25.25ZM4.997 6.178a.75.75 0 1 0-1.493.144L4.916 20.92a1.75 1.75 0 0 0 1.742 1.58h10.684a1.75 1.75 0 0 0 1.742-1.581l1.413-14.597a.75.75 0 0 0-1.494-.144l-1.412 14.596a.25.25 0 0 1-.249.226H6.658a.25.25 0 0 1-.249-.226L4.997 6.178Z"/><path fill="currentColor" d="M9.206 7.501a.75.75 0 0 1 .793.705l.5 8.5A.75.75 0 1 1 9 16.794l-.5-8.5a.75.75 0 0 1 .705-.793Zm6.293.793A.75.75 0 1 0 14 8.206l-.5 8.5a.75.75 0 0 0 1.498.088l.5-8.5Z"/></svg>

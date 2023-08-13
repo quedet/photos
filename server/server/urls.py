@@ -18,10 +18,16 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from apps.assets.consumers import AssetsConsumer
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('apps.assets.urls', namespace='assets')),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
+]
+
+websocket_urlpatterns = [
+    path('ws/assets/', AssetsConsumer.as_asgi())
 ]
 
 if settings.DEBUG:

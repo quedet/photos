@@ -27,12 +27,11 @@
           <a href="{{image.get_absolute_url}}"  id="asset--{{image.id}}" class="item--link">
             <img src="{{image.source.url}}" alt="{{image.alt}}">
           </a>
-          <form action="{% url 'assets:mark-as-favorite' image.id %}" method="post" class="item--form">
-            {% csrf_token %}
-            <button id="asset--{{image.id}}--button" data-turbo-temporary="true">
+          <div class="item--form">
+            <button  id="asset--{{image.id}}--button" data-turbo-temporary="true" data-id="{{image.id}}"  data-assets-target="button">
               {% include 'components/blocks/favorite.html' with action=image.favorite|get_action %}
             </button>
-          </form>
+          </div>
         </div>
         {% endfor %}
       </div>

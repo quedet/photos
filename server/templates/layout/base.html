@@ -12,7 +12,7 @@
   {% stylesheet_pack 'hotwired' attrs="data-turbo-track='reload'" %}
   {% javascript_pack 'hotwired' attrs="defer data-turbo-track='reload'" %}
 </head>
-<body class="page--assets">
+<body class="page--assets" data-controller="assets" data-assets-socket-url-value="/ws/assets/">
   <div 
     data-controller="slideover"
     data-slideover-invisible-class="-translate-x-full,opacity-0"
